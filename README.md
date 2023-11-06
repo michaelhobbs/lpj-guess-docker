@@ -19,7 +19,10 @@ docker build -t lpj-guess .
 docker create --name lpj-guess-temp lpj-guess
 docker cp lpj-guess-temp:/lpj-guess/guess_4.1/runs .
 docker cp lpj-guess-temp:/lpj-guess/guess_4.1/data .
-docker rm lpj-guess-tempdocker run -it --rm -v ./runs:/lpj-guess/guess_4.1/runs -v ./data:/lpj-guess/guess_4.1/data --name local-lpj-guess lpj-guess
+docker rm lpj-guess-temp
+docker run -it --rm -v ./runs:/lpj-guess/guess_4.1/runs \
+                    -v ./data:/lpj-guess/guess_4.1/data \
+                    --name local-lpj-guess lpj-guess
 ```
 
 When the simulation has completed, the results are available in [./runs/out](./runs/out).
@@ -57,10 +60,12 @@ This project's folder should now look like this:
 
 ### Running on local data
 
-Optionally edit the instruction files in `./runs` and/or the data files in `./data/env`, then run lpj-guess on them:
+Optionally edit the instruction files in [./runs](./runs) and/or the data files in [./data/env](./data/env), then run lpj-guess on them:
 
 ```sh
-docker run -it --rm -v ./runs:/lpj-guess/guess_4.1/runs -v ./data:/lpj-guess/guess_4.1/data --name local-lpj-guess lpj-guess
+docker run -it --rm -v ./runs:/lpj-guess/guess_4.1/runs \
+                    -v ./data:/lpj-guess/guess_4.1/data \
+                    --name local-lpj-guess lpj-guess
 ```
 
 By default lpj-guess runs with:
@@ -71,27 +76,38 @@ By default lpj-guess runs with:
 To run LPJ-GUESS with custom arguments, pass them to the run command:
 
 ```sh
-docker run -it --rm -v ./runs:/lpj-guess/guess_4.1/runs -v ./data:/lpj-guess/guess_4.1/data --name local-lpj-guess lpj-guess <arg1> <arg2> ...
+docker run -it --rm -v ./runs:/lpj-guess/guess_4.1/runs \
+                    -v ./data:/lpj-guess/guess_4.1/data \
+                    --name local-lpj-guess lpj-guess \
+                    <arg1> <arg2> ...
 ```
 
 For example, to run using the `cru` input module with the `europe_cru.ins` as instruction file (assuming you have adapted the paths in the instruction file, and have added `cru` data):
 
 ```sh
-docker run -it --rm -v ./runs:/lpj-guess/guess_4.1/runs -v ./data:/lpj-guess/guess_4.1/data --name local-lpj-guess lpj-guess -input cru europe_cru.ins
+docker run -it --rm -v ./runs:/lpj-guess/guess_4.1/runs \
+                    -v ./data:/lpj-guess/guess_4.1/data \
+                    --name local-lpj-guess lpj-guess \
+                    -input cru europe_cru.ins
 ```
 
 View the LPJ-GUESS help to see the many arguments and configuration options:
 
 ```sh
-docker run -it --rm -v ./runs:/lpj-guess/guess_4.1/runs -v ./data:/lpj-guess/guess_4.1/data --name local-lpj-guess lpj-guess --help
+docker run -it --rm -v ./runs:/lpj-guess/guess_4.1/runs \
+                    -v ./data:/lpj-guess/guess_4.1/data \
+                    --name local-lpj-guess lpj-guess \
+                    --help
 ```
 
 ### Using an alias
 
-To avoid copying the entire docker command every time you want to run LPJ-GUESS, set an alias for the current bash/sh/zsh ssession:
+To avoid copying the entire docker command every time you want to run LPJ-GUESS, set an alias for the current bash/sh/zsh session:
 
 ```sh
-alias guess docker run -it --rm -v ./runs:/lpj-guess/guess_4.1/runs -v ./data:/lpj-guess/guess_4.1/data --name local-lpj-guess lpj-guess
+alias guess docker run -it --rm -v ./runs:/lpj-guess/guess_4.1/runs \
+                                -v ./data:/lpj-guess/guess_4.1/data \
+                                --name local-lpj-guess lpj-guess
 ```
 
 Then run LPJ-GUESS like this:
