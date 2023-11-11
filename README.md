@@ -33,7 +33,7 @@ When the simulation has completed, the results are available in [./out](./out).
 ### Accessing the demo data locally
 
 By default the docker container will use the demo data.
-Run the following commands to create a copy of the default data that will be used by the docker container, on you local machine.
+Run the following commands to create a copy of the demo data on you local machine.
 
 ```sh
 docker build -t lpj-guess .
@@ -43,7 +43,7 @@ docker cp lpj-guess-temp:/lpj-guess/guess_4.1/data .
 docker rm lpj-guess-temp
 ```
 
-Now the demo data, config and output folders that LPJ-GUESS is using are also available locally.
+Now the demo data and instructions folders that LPJ-GUESS is using are also available locally.
 
 This project's folder should now look like this:
 
@@ -56,7 +56,6 @@ This project's folder should now look like this:
 │   ├── gridlist
 │   └── ins
 └── runs    # shared with docker containers
-    └── out # output files from a simulation
 ```
 
 ### Running on local data
@@ -69,6 +68,8 @@ docker run -it --rm -v ./runs:/lpj-guess/guess_4.1/runs \
                     -v ./out:/lpj-guess/guess_4.1/out \
                     --name local-lpj-guess lpj-guess
 ```
+
+The results are located in [./out](./out).
 
 By default lpj-guess runs with:
 
