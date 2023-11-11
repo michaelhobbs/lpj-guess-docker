@@ -1,2 +1,5 @@
 data
 runs
+out
+
+.DS_Store
